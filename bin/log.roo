@@ -1,0 +1,22 @@
+// Spring Roo 2.0.0.RELEASE [rev 4a2e9f1] log opened at 2018-10-29 17:50:00
+// Spring Roo 2.0.0.RELEASE [rev 4a2e9f1] log opened at 2018-11-02 16:10:07
+project setup --topLevelPackage Ejercicio.GestionDonantes
+jpa setup --provider HIBERNATE --database HYPERSONIC_IN_MEMORY 
+enum type --class ~.dominio.GrupoSanguineo
+enum constant --name Grupo_A
+enum constant --name Grupo_b
+enum constant --name Grupo_AB
+enum constant --name Grupo_0
+entity jpa --class ~.dominio.Organo
+field string --fieldName nombre --notNull 
+field string --fieldName descripcion
+entity jpa --class ~.dominio.Donante
+field string --fieldName nombre --sizeMax 25 --notNull 
+// [failed] field enum --fieldName grupoSanguineo --type ~.dominio.GrupoSanguineo --notNull
+field string --fieldName mail --regexp "[a-AZ-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]" --notNull 
+field set --fieldName organos --type ~.dominio.Organo --mappedBy donante --notNull false --cardinality ONE_TO_MANY 
+// [failed] field reference --fieldName donante --class ~.dominio.Organo --type ~.dominio.Donante --notNull 
+web mvc setup 
+web mvc view setup --type THYMELEAF 
+web mvc controller --all --responseType THYMELEAF 
+web mvc controller --all --pathPrefix /api
